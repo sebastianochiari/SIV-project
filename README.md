@@ -11,13 +11,18 @@ This project is a python implementation of a **motion-compensated video filter**
 
 ### ⚙️ Requirements
 
-- `Python 3.8.6`
-- `Numpy 1.19.4`
+- `Python` (version `3.8.6`)
+- `Numpy` (version `1.19.4`)
+- `OpenCV` (version `4.5.1`)
+ 
+> (between parenthesis you'll find the precise version used during the development of this filter)
 
 ### 🔧 How to use
 
 - Clone the repository `https://github.com/sebastianochiari/SIV-project`
 - Install all the dependencies listed above
+- Set the parameters in `main.py`
+- Run the command `python3 src/main.py` from the root folder of this repo
 
 ### 📜 Report
 The report `da inserire` includes some theory behind the functioning of the filter and all the details about the implementation.
