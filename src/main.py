@@ -4,17 +4,32 @@
 
 import numpy as np
 import cv2
+import configparser
 from motionEstimation import motionEstimation
 
-## CONFIGURATION SECTION ##
-input_video = './local/'+ 'foreman_cif.mov'
-output_video = './local/'+ 'output-foreman_cif' + '.avi'
-# define how bigger will be the macroblock in order to compute the motion estimation
-macroBlock_dimension = 16
-# define how much frame will be considered forward and backward in order to compute the filtering
-temporal_displacement = 2
+# CONFIGURATION SECTION -------------------------------------------------------------------------#
+print('## Start CONFIG section ##')
 
-## SETUP SECTION ##
+# Read config.ini file
+config = configparser.ConfigParser()
+config.read('./src/config.ini')
+
+input_video = './local/'+ config.get('Filenames', 'input-file')
+print('\tINPUT VIDEO >', input_video)
+output_video = './local/'+ config.get('Filenames', 'output-file') + '.avi'
+print('\tOUTPUT VIDEO >', output_video)
+
+# define how bigger will be the macroblock in order to compute the motion estimation
+macroBlock_dimension = int(config.get('Parameters', 'macroblock-dimension'))
+print('\tMACROBLOCK DIMENSION:', macroBlock_dimension)
+
+# define how much frame will be considered forward and backward in order to compute the filtering
+temporal_displacement = int(config.get('Parameters', 'temporal-displacement'))
+print('\tTEMPORAL DISPLACEMENT:', temporal_displacement)
+
+print('## End CONFIG section ##' + '\n')
+
+# SETUP SECTION ---------------------------------------------------------------------------------#
 print('## Start SETUP section ##')
 
 # Importing video and retrieve meaningful parameters
@@ -39,6 +54,7 @@ print('## End SETUP section ##' + '\n')
 print('## Start VIDEO PROCESSING section ##')
 
 # copy every frame into a list for better usage
+# not computationally friendly but due to the temporal displacement is the easiest way to implement
 frames = []
 while(True):
     ret, frame = video.read()
